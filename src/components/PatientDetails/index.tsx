@@ -39,7 +39,7 @@ const PatientDetails = ({ id, setSelectedId }: PatientDetailsProps) => {
     return <CircularProgress />;
   }
 
-  if (!patient) {
+  if (id === "") {
     return <Typography variant="h6">Patient not found</Typography>;
   }
 
@@ -60,7 +60,7 @@ const PatientDetails = ({ id, setSelectedId }: PatientDetailsProps) => {
       <Typography variant="h4">{patient.name}</Typography>
       <Typography variant="h6">Gender: {getGenderIcon(patient.gender)}</Typography>
       {patient.ssn && <Typography variant="h6">SSN: {patient.ssn}</Typography>}
-      <Typography variant="h6">Age: {patient.occupation}</Typography>
+      <Typography variant="h6">Occupation: {patient.occupation}</Typography>
     </Container>
   );
 };
