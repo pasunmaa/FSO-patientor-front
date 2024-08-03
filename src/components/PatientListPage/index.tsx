@@ -1,10 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { Box, Table, Button, TableHead, Typography, TableCell, TableRow, TableBody } from '@mui/material';
 import axios from 'axios';
 
 import { PatientFormValues, Patient } from "../../types";
 
-import PatientDetails from "../AddPatientModal";
 import AddPatientModal from "../AddPatientModal";
 import HealthRatingBar from "../HealthRatingBar";
 
@@ -13,12 +13,12 @@ import patientService from "../../services/patients";
 interface Props {
   patients : Patient[]
   setPatients: React.Dispatch<React.SetStateAction<Patient[]>>
+  setSelectedId: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const PatientListPage = ({ patients, setPatients } : Props ) => {
+const PatientListPage = ({ patients, setPatients, setSelectedId } : Props ) => {
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const [selectedPatientId, setSelectedPatientId] = useState<string>(""); // | null>(null);
   const [error, setError] = useState<string>();
 
   const openModal = (): void => setModalOpen(true);
@@ -28,10 +28,12 @@ const PatientListPage = ({ patients, setPatients } : Props ) => {
     setError(undefined);
   };
 
+  const navigate = useNavigate();
   const handleTableRowClick = (id: string): void => {
-    // The click activates PatientDetails component and passes ID to it
+    // The click navigates to PatientDetails component and passes ID to it
     console.log("PatientListPage: Clicked on row with ID:", id);
-    setSelectedPatientId(id);
+    setSelectedId(id);
+    navigate(`/patients/${id}`);
   };
 
   const submitNewPatient = async (values: PatientFormValues) => {
@@ -84,7 +86,6 @@ const PatientListPage = ({ patients, setPatients } : Props ) => {
           ))}
         </TableBody>
       </Table>
-      {selectedPatientId && <PatientDetails id={selectedPatientId} />}
       <AddPatientModal
         modalOpen={modalOpen}
         onSubmit={submitNewPatient}

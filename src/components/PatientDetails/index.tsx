@@ -10,18 +10,21 @@ import FemaleIcon from '@mui/icons-material/Female';
 import TransgenderIcon from '@mui/icons-material/Transgender';
 
 interface PatientDetailsProps {
-  id: string;
+    id: string;
+    setSelectedId: React.Dispatch<React.SetStateAction<string>>;
 }
   
-const PatientDetails = ({ id }: PatientDetailsProps) => {
+const PatientDetails = ({ id, setSelectedId }: PatientDetailsProps) => {
   const [patient, setPatient] = useState<Patient>(emptyPatient);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchPatient = async () => {
       try {
+        //console.log('PatientDetails, useEffect: Fetching patient data for ID:', id);
         const patientData = await getPatientById(id);
         setPatient(patientData);
+        setSelectedId(id);
       } catch (error) {
         console.error('Error fetching patient data:', error);
       } finally {
@@ -30,7 +33,7 @@ const PatientDetails = ({ id }: PatientDetailsProps) => {
     };
 
     fetchPatient();
-  }, [id]);
+  }, [id, setSelectedId]);
 
   if (loading) {
     return <CircularProgress />;
