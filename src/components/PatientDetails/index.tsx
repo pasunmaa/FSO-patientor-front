@@ -4,7 +4,7 @@ import { Patient } from "../../types";
 import { emptyPatient } from "../../constants";
 import { getPatientById } from '../../services/patients';
 
-import { Container, Typography, CircularProgress } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
 import TransgenderIcon from '@mui/icons-material/Transgender';
@@ -16,7 +16,6 @@ interface PatientDetailsProps {
   
 const PatientDetails = ({ id, setSelectedId }: PatientDetailsProps) => {
   const [patient, setPatient] = useState<Patient>(emptyPatient);
-  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchPatient = async () => {
@@ -27,17 +26,11 @@ const PatientDetails = ({ id, setSelectedId }: PatientDetailsProps) => {
         setSelectedId(id);
       } catch (error) {
         console.error('Error fetching patient data:', error);
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchPatient();
   }, [id, setSelectedId]);
-
-  if (loading) {
-    return <CircularProgress />;
-  }
 
   if (id === "") {
     return <Typography variant="h6">Patient not found</Typography>;
