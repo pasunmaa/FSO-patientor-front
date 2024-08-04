@@ -9,7 +9,6 @@ const emptyEntry = {
     date: "",
     specialist: "",
     employerName: "",
-    //diagnosisCodes: []
 };
 
 export const emptyPatient: Patient = {

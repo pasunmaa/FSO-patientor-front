@@ -11,15 +11,19 @@ import PatientListPage from "./components/PatientListPage";
 import PatientDetails from './components/PatientDetails';
 
 const App = () => {
-  const [patients, setPatients] = useState<Patient[]>([]);
+  const [patients, setPatients] = useState<Array<Patient>>([]);
   const [selectedId, setSelectedId] = useState<string>("");
   
   useEffect(() => {
     void axios.get<void>(`${apiBaseUrl}/ping`);
 
     const fetchPatientList = async () => {
-      const patients = await patientService.getAll();
-      setPatients(patients);
+      try {
+        const patients = await patientService.getAll();
+        setPatients(patients);
+      } catch (error) {
+        console.error('Failed to fetch patients:', error);
+      }
     };
     void fetchPatientList();
   }, []);
