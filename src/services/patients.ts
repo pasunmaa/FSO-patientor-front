@@ -12,7 +12,7 @@ const getAll = async () => {
 };
 
 export const getPatientById = async (id: string): Promise<Patient> => {
-  console.log('getPatientById: Fetching patient data for ID:', id);
+  //console.log('getPatientById: Fetching patient data for ID:', id);
   const response = await axios.get<Patient>(`${apiBaseUrl}/patients/${id}`);
   return response.data;
 };

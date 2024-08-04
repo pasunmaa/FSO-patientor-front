@@ -31,7 +31,7 @@ const PatientListPage = ({ patients, setPatients, setSelectedId } : Props ) => {
   const navigate = useNavigate();
   const handleTableRowClick = (id: string): void => {
     // The click navigates to PatientDetails component and passes ID to it
-    console.log("PatientListPage: Clicked on row with ID:", id);
+    //console.log("PatientListPage: Clicked on row with ID:", id);
     setSelectedId(id);
     navigate(`/patients/${id}`);
   };
