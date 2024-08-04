@@ -21,7 +21,7 @@ const PatientDetails = ({ id, setSelectedId }: PatientDetailsProps) => {
       try {
         //console.log('PatientDetails, useEffect: Fetching patient data for ID:', id);
         const patientData = await getPatientById(id);
-        console.log(patientData);
+        //console.log(patientData);
         setPatient(patientData);
         setSelectedId(id);
       } catch (error) {
@@ -60,6 +60,13 @@ const PatientDetails = ({ id, setSelectedId }: PatientDetailsProps) => {
       {patient.entries.map((entry: Entry) => (
         <div key={entry.id}>
           <Typography variant="body1">{entry.date}: {entry.description}</Typography>
+          {entry.diagnosisCodes && (
+            <ul>
+              {entry.diagnosisCodes.map((code: string) => (
+                <li key={code}>{code}</li>
+              ))}
+            </ul>
+          )}
         </div>
       ))}
     </Container>
