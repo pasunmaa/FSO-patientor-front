@@ -20,7 +20,7 @@ export interface Patient {
   entries: Entry[];
 }
 
-export type PatientFormValues = Omit<Patient, "id" | "entries">;
+export type PatientFormValues = Omit<Patient, "id">;
 
 // Define special omit for unions
 // https://github.com/microsoft/TypeScript/issues/42680
